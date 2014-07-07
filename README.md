@@ -1,10 +1,7 @@
 # sweep-stake
 
-An OM project designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
+A simple website for playing sweep stakes with your friends
+See it [here](http://brendanator.github.io/sweep-stake)
 
 ## License
 
