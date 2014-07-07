@@ -25,4 +25,5 @@
              :compiler
              {:output-to "dev-resources/public/js/sweep_stake.js"
               :optimizations :advanced
-              :pretty-print false}}}})
+              :pretty-print false
+              :source-map true}}}})

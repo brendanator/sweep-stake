@@ -41,12 +41,20 @@
            (om/build-all player-header players)
            (dom/th nil "Result")])))))
 
-(defn bet-row [bet-data owner]
+(defn predication [predications bet-id player-id]
+  (->> predications
+    (filter #(= bet-id (:bet-id %))) 
+    (filter #(= player-id (:player-id %)))
+    first
+    :predication))
+
+(defn bet-row [app bet owner]
   (reify
     om/IRender
     (render [_]
-      (dom/tr nil 
-        (dom/td nil (:description (:bet bet-data)))))))
+      (apply dom/tr nil 
+        (dom/td nil (:description bet))
+        (mapv #(dom/td nil (predication (:predications app) (:bet-id bet) (:player-id %))) (:players app))))))
 
 (defn sweep-stake [app owner]
   (reify
@@ -54,7 +62,7 @@
     (render [_]
       (apply dom/table nil
         (om/build heading-row (:players app))
-        (om/build-all bet-row (:bets app))))))
+        (om/build-all #(bet-row app % owner) (:bets app))))))
 
 (om/root
   sweep-stake
