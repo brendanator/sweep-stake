@@ -1,6 +1,7 @@
 # sweep-stake
 
 A simple website for playing sweep stakes with your friends
+
 See it [here](http://brendanator.github.io/sweep-stake)
 
 ## License
