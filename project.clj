@@ -24,6 +24,7 @@
             {:source-paths ["src/cljs"]
              :compiler
              {:output-to "dev-resources/public/js/sweep_stake.js"
+              :output-dir "dev-resources/public/js"
               :optimizations :advanced
               :pretty-print false
-              :source-map true}}}})
+              :source-map "dev-resources/public/js/sweep_stake.js.map"}}}})
