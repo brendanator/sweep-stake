@@ -98,14 +98,14 @@
 (defn bet-row [[app bet] owner]
   (om/component
     (let [players (:players app)
-        bet-winners (bet-winners players bet)]
+          bet-winners (bet-winners players bet)]
       (apply dom/tr nil 
         (flatten
           [(om/build editable bet
               {:opts {:edit-key :description
                       :tag dom/td
                       :props nil}})
-           (om/build-all #(predication-cell [% bet bet-winners] %2) players)
+           (om/build-all predication-cell (map vector players (repeat bet) (repeat bet-winners)))
            (om/build editable bet 
               {:opts {:edit-key :result
                       :tag dom/td
@@ -131,7 +131,7 @@
       (apply dom/tbody nil
         (flatten 
           [(om/build heading-row (:players app))
-           (om/build-all #(bet-row [app %] %2) (:bets app))
+           (om/build-all bet-row (map vector (repeat app) (:bets app)))
            (om/build totals-row app)])))))
 
 (om/root
