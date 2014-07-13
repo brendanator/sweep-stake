@@ -30,7 +30,7 @@
           {:bet-id 3 :description "First goal scorer" :type :name :result "Tom"}]})))
 
 (add-watch app-state :storage
-  (fn [key app old-state new-state]
+  (fn [key _ _ new-state]
     (.setItem js/localStorage key new-state)))
 
 (defn display [show]
@@ -134,25 +134,7 @@
            (om/build-all #(bet-row [app %] %2) (:bets app))
            (om/build totals-row app)])))))
 
-(defn sub-view [item owner]
-  (om/component (dom/div nil (:text item))))
-
-(defn something-else [original owner opts]
-  (om/component
-    (dom/div #js {:style #js {:border "1px solid #ccc"
-                            :padding "5px"}}
-    (dom/div nil
-      (dom/span nil "Path:")
-      (dom/pre #js {:style #js {:display "inline-block"}}
-        (pr-str (om/path (second original)))))
-    (apply om/build* original))))
-
 (om/root
   sweep-stake
   app-state
-  {:target (. js/document (getElementById "app"))
-   :instrument
-   (fn [f cursor m]
-     (if (= f sub-view)
-       (om/build* something-else [f cursor m])
-       ::om/pass))})
+  {:target (. js/document (getElementById "app"))})
