@@ -5,17 +5,17 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :distribution :repo}
 
-  :min-lein-version "2.3.4"
+  :min-lein-version "2.4.1"
 
   :source-paths ["src/clj" "src/cljs"]
 
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-2156"]
-                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
-                 [om "0.5.0"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/clojurescript "0.0-2268"]
+                 [org.clojure/core.async "0.1.303.0-886421-alpha"]
+                 [om "0.6.5"]
                  [com.facebook/react "0.9.0"]]
   
-  :plugins [[lein-cljsbuild "1.0.2"]]
+  :plugins [[lein-cljsbuild "1.0.3"]]
 
   :hooks [leiningen.cljsbuild]
 
