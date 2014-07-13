@@ -6,3 +6,5 @@ pom.xml
 /target/
 /.lein-*
 /.nfrepl-port
+/dev-resources/public/js/*
+!/dev-resources/public/js/sweep-stake.js
