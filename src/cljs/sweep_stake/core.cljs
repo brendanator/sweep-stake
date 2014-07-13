@@ -1,30 +1,37 @@
 (ns sweep-stake.core
-  (:require [om.core :as om :include-macros true]
+  (:require [cljs.reader :as reader]
+            [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]))
 
 (enable-console-print!)
 
 (def app-state 
   (atom 
-    {:players 
-       [{:name "Brendan" 
-         :predications
-           [{:bet-id 1 :predication "2-1"}
-            {:bet-id 2 :predication 1}
-            {:bet-id 3 :predication "Tom"}]}
-        {:name "Paul"
-         :predications
-           [{:bet-id 1 :predication "1-1"}
-            {:bet-id 3 :predication "Dick"}]}         
-        {:name "Lis"
-         :predications
-           [{:bet-id 1 :predication "1-2"}
-            {:bet-id 2 :predication 0}
-            {:bet-id 3 :predication "Harry"}]}]
-     :bets 
-       [{:bet-id 1 :description "Full time score" :type :score :result "1-2"}
-        {:bet-id 2 :description "Number of yellows" :type :number :result 0}
-        {:bet-id 3 :description "First goal scorer" :type :name :result "Tom"}]}))
+    (if-let [existing (.getItem js/localStorage :storage)]
+      (reader/read-string existing)
+      {:players 
+         [{:name "Brendan" 
+           :predications
+             [{:bet-id 1 :predication "2-1"}
+              {:bet-id 2 :predication 1}
+              {:bet-id 3 :predication "Tom"}]}
+          {:name "Paul"
+           :predications
+             [{:bet-id 1 :predication "1-1"}
+              {:bet-id 3 :predication "Dick"}]}         
+          {:name "Lis"
+           :predications
+             [{:bet-id 1 :predication "1-2"}
+              {:bet-id 2 :predication 0}
+              {:bet-id 3 :predication "Harry"}]}]
+       :bets 
+         [{:bet-id 1 :description "Full time score" :type :score :result "1-2"}
+          {:bet-id 2 :description "Number of yellows" :type :number :result 0}
+          {:bet-id 3 :description "First goal scorer" :type :name :result "Tom"}]})))
+
+(add-watch app-state :storage
+  (fn [key app old-state new-state]
+    (.setItem js/localStorage key new-state)))
 
 (defn display [show]
   (if show
